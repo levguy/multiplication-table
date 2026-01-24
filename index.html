@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>לוח הכפל - אביגיל</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated background -->
+    <div class="bg-animation">
+        <div class="floating-shape shape-1">✖</div>
+        <div class="floating-shape shape-2">＝</div>
+        <div class="floating-shape shape-3">➕</div>
+        <div class="floating-shape shape-4">✖</div>
+        <div class="floating-shape shape-5">🌟</div>
+        <div class="floating-shape shape-6">💫</div>
+        <div class="floating-shape shape-7">⭐</div>
+        <div class="floating-shape shape-8">✨</div>
+    </div>
+
+    <!-- Confetti container -->
+    <div id="confetti-container"></div>
+
+    <!-- Main content -->
+    <div class="container">
+        <!-- Welcome screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-content">
+                <div class="mascot">🦊</div>
+                <h1 class="welcome-title">ברוכה הבאה!</h1>
+                <h2 class="welcome-subtitle">אביגיל</h2>
+                <p class="welcome-text">לתרגול המתקדם של לוח הכפל</p>
+                <button id="start-btn" class="btn btn-start">
+                    <span>בואי נתחיל!</span>
+                    <span class="btn-emoji">🚀</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Game screen -->
+        <div id="game-screen" class="screen">
+            <!-- Sound toggle -->
+            <div class="sound-toggle">
+                <span class="toggle-label">🎵 צלילים:</span>
+                <button id="sound-toggle-btn" class="toggle-btn" data-mode="fun">
+                    <span class="toggle-option active" data-value="fun">🎉 כיפיים</span>
+                    <span class="toggle-option" data-value="original">🎹 מקוריים</span>
+                </button>
+            </div>
+
+            <!-- Stats bar -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-icon">🔥</span>
+                    <span class="stat-label">רצף</span>
+                    <span id="streak" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">⭐</span>
+                    <span class="stat-label">ניקוד</span>
+                    <span id="score" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">✅</span>
+                    <span class="stat-label">נכונות</span>
+                    <span id="correct-count" class="stat-value">0</span>
+                </div>
+            </div>
+
+            <!-- Question card -->
+            <div id="question-card" class="question-card">
+                <div class="question-header">
+                    <span class="question-emoji">🤔</span>
+                    <span>כמה זה?</span>
+                </div>
+                <div class="question-equation">
+                    <span id="num-a" class="number">7</span>
+                    <span class="operator">×</span>
+                    <span id="num-b" class="number">8</span>
+                    <span class="equals">=</span>
+                    <span class="question-mark">?</span>
+                </div>
+                
+                <!-- Answer input -->
+                <div class="answer-section">
+                    <input type="number" id="answer-input" class="answer-input" placeholder="הקלידי את התשובה" autocomplete="off">
+                    <button id="submit-btn" class="btn btn-submit">
+                        <span>בדקי</span>
+                        <span class="btn-emoji">✓</span>
+                    </button>
+                </div>
+
+                <!-- Feedback area -->
+                <div id="feedback" class="feedback hidden">
+                    <span id="feedback-emoji" class="feedback-emoji">🎉</span>
+                    <span id="feedback-text" class="feedback-text">מעולה!</span>
+                </div>
+            </div>
+
+            <!-- Number buttons for quick input -->
+            <div class="number-pad">
+                <button class="num-btn" data-num="1">1</button>
+                <button class="num-btn" data-num="2">2</button>
+                <button class="num-btn" data-num="3">3</button>
+                <button class="num-btn" data-num="4">4</button>
+                <button class="num-btn" data-num="5">5</button>
+                <button class="num-btn" data-num="6">6</button>
+                <button class="num-btn" data-num="7">7</button>
+                <button class="num-btn" data-num="8">8</button>
+                <button class="num-btn" data-num="9">9</button>
+                <button class="num-btn num-btn-wide" data-num="0">0</button>
+                <button class="num-btn num-btn-clear" data-action="clear">⌫</button>
+            </div>
+
+            <!-- Streak milestones -->
+            <div id="streak-milestone" class="streak-milestone hidden">
+                <span class="milestone-text"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
