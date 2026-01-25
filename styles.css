@@ -301,9 +301,10 @@ body {
     background: linear-gradient(135deg, var(--success), #00a884);
     color: var(--text-light);
     box-shadow: 0 8px 25px rgba(0, 184, 148, 0.4);
-    padding: var(--space-sm) var(--space-lg);
+    padding: var(--space-sm) var(--space-md);
     flex-shrink: 0;
     white-space: nowrap;
+    font-size: 1.1rem;
 }
 
 .btn-submit:hover {
@@ -497,12 +498,14 @@ body {
 
 .answer-section {
     display: flex;
-    gap: var(--space-sm);
+    gap: var(--space-xs);
     margin-bottom: var(--space-sm);
+    width: 100%;
 }
 
 .answer-input {
     flex: 1;
+    min-width: 0;
     padding: var(--space-sm);
     font-family: inherit;
     font-size: 1.3rem;
