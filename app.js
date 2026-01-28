@@ -1307,18 +1307,11 @@ elements.answerInput.addEventListener('keydown', (e) => {
     }
 });
 
-// Number pad - use pointerdown for instant response (no 300ms touch delay)
-function handleNumpadInput(e) {
+// Number pad click handler
+// Using click only - touch-action: manipulation CSS eliminates the 300ms delay
+elements.numberPad.addEventListener('click', (e) => {
     const btn = e.target.closest('.num-btn');
     if (!btn) return;
-    
-    // Prevent duplicate events (pointerdown + click)
-    if (e.type === 'pointerdown') {
-        btn.dataset.handled = 'true';
-    } else if (e.type === 'click' && btn.dataset.handled === 'true') {
-        btn.dataset.handled = '';
-        return;
-    }
     
     playButtonClick();
     
@@ -1329,11 +1322,7 @@ function handleNumpadInput(e) {
     } else if (btn.dataset.num !== undefined) {
         elements.answerInput.value += btn.dataset.num;
     }
-}
-
-// Use pointerdown for touch devices (instant), click as fallback for keyboard/mouse
-elements.numberPad.addEventListener('pointerdown', handleNumpadInput);
-elements.numberPad.addEventListener('click', handleNumpadInput);
+});
 
 // Sound toggle
 elements.soundToggleBtn.addEventListener('click', () => {
