@@ -649,6 +649,15 @@ body {
     grid-column: span 2;
 }
 
+.num-btn-submit {
+    background: linear-gradient(135deg, var(--success), #00b894);
+    color: white;
+}
+
+.num-btn-submit:hover {
+    background: linear-gradient(135deg, #55efc4, var(--success));
+}
+
 .num-btn-clear {
     background: linear-gradient(135deg, var(--error), #e74c3c);
     color: white;

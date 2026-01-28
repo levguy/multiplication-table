@@ -88,9 +88,6 @@
                 <!-- Answer input -->
                 <div class="answer-section">
                     <input type="text" id="answer-input" class="answer-input" placeholder="הקלידי את התשובה" autocomplete="off" inputmode="none">
-                    <button id="submit-btn" class="btn btn-submit">
-                        <span>שלחי</span>
-                    </button>
                 </div>
 
                 <!-- Feedback area -->
@@ -111,7 +108,8 @@
                 <button class="num-btn" data-num="7">7</button>
                 <button class="num-btn" data-num="8">8</button>
                 <button class="num-btn" data-num="9">9</button>
-                <button class="num-btn num-btn-wide" data-num="0">0</button>
+                <button id="submit-btn" class="num-btn num-btn-submit" data-action="submit">שלחי</button>
+                <button class="num-btn" data-num="0">0</button>
                 <button class="num-btn num-btn-clear" data-action="clear">⌫</button>
             </div>
 

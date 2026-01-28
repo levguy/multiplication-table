@@ -1327,6 +1327,8 @@ function handleNumpadInput(e) {
     
     if (btn.dataset.action === 'clear') {
         elements.answerInput.value = elements.answerInput.value.slice(0, -1);
+    } else if (btn.dataset.action === 'submit') {
+        checkAnswer();
     } else if (btn.dataset.num !== undefined) {
         elements.answerInput.value += btn.dataset.num;
     }
