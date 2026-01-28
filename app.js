@@ -1310,9 +1310,7 @@ elements.answerInput.addEventListener('keydown', (e) => {
     }
 });
 
-// Number pad
-// Use a counter instead of boolean to handle rapid consecutive taps
-let programmaticFocusCount = 0;
+// Number pad - directly update input value without focus management
 elements.numberPad.addEventListener('click', (e) => {
     const btn = e.target.closest('.num-btn');
     if (!btn) return;
@@ -1324,10 +1322,6 @@ elements.numberPad.addEventListener('click', (e) => {
     } else if (btn.dataset.num !== undefined) {
         elements.answerInput.value += btn.dataset.num;
     }
-    
-    programmaticFocusCount++;
-    elements.answerInput.focus();
-    setTimeout(() => { programmaticFocusCount--; }, 50);
 });
 
 // Sound toggle
@@ -1386,18 +1380,9 @@ document.addEventListener('touchend', (e) => {
 // PREVENT MOBILE KEYBOARD
 // ========================================
 
+// The input has inputmode="none" which prevents the virtual keyboard.
+// We also make it readonly on touch devices to ensure no keyboard appears.
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 if (isTouchDevice) {
-    // Blur input immediately on focus to prevent keyboard (only if not from numpad)
-    elements.answerInput.addEventListener('focus', () => {
-        if (programmaticFocusCount === 0) {
-            setTimeout(() => elements.answerInput.blur(), 0);
-        }
-    }, { passive: true });
-    
-    // Also prevent keyboard on touchstart
-    elements.answerInput.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        elements.answerInput.blur();
-    }, { passive: false });
+    elements.answerInput.readOnly = true;
 }
