@@ -615,6 +615,7 @@ body {
     grid-template-columns: repeat(3, 1fr);
     gap: 6px;
     margin-top: var(--space-sm);
+    direction: ltr; /* Keep standard numpad layout in RTL pages */
 }
 
 .num-btn {
