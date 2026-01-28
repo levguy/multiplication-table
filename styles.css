@@ -649,22 +649,22 @@ body {
     grid-column: span 2;
 }
 
-.num-btn-submit {
-    background: linear-gradient(135deg, var(--success), #00b894);
+.num-btn.num-btn-submit {
+    background: linear-gradient(135deg, var(--success), #00b894) !important;
     color: white;
 }
 
-.num-btn-submit:hover {
-    background: linear-gradient(135deg, #55efc4, var(--success));
+.num-btn.num-btn-submit:hover {
+    background: linear-gradient(135deg, #55efc4, var(--success)) !important;
 }
 
-.num-btn-clear {
-    background: linear-gradient(135deg, var(--error), #e74c3c);
+.num-btn.num-btn-clear {
+    background: linear-gradient(135deg, var(--error), #e74c3c) !important;
     color: white;
 }
 
-.num-btn-clear:hover {
-    background: linear-gradient(135deg, #ff8787, var(--error));
+.num-btn.num-btn-clear:hover {
+    background: linear-gradient(135deg, #ff8787, var(--error)) !important;
 }
 
 /* ========================================
