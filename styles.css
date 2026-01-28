@@ -623,6 +623,9 @@ body {
     font-size: 1.3rem;
     font-weight: 700;
     background: var(--card-bg);
+    touch-action: manipulation; /* Disable 300ms touch delay */
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
+    user-select: none; /* Prevent text selection */
     border: none;
     border-radius: var(--radius-sm);
     cursor: pointer;

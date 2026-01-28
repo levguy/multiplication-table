@@ -1310,10 +1310,18 @@ elements.answerInput.addEventListener('keydown', (e) => {
     }
 });
 
-// Number pad - directly update input value without focus management
-elements.numberPad.addEventListener('click', (e) => {
+// Number pad - use pointerdown for instant response (no 300ms touch delay)
+function handleNumpadInput(e) {
     const btn = e.target.closest('.num-btn');
     if (!btn) return;
+    
+    // Prevent duplicate events (pointerdown + click)
+    if (e.type === 'pointerdown') {
+        btn.dataset.handled = 'true';
+    } else if (e.type === 'click' && btn.dataset.handled === 'true') {
+        btn.dataset.handled = '';
+        return;
+    }
     
     playButtonClick();
     
@@ -1322,7 +1330,11 @@ elements.numberPad.addEventListener('click', (e) => {
     } else if (btn.dataset.num !== undefined) {
         elements.answerInput.value += btn.dataset.num;
     }
-});
+}
+
+// Use pointerdown for touch devices (instant), click as fallback for keyboard/mouse
+elements.numberPad.addEventListener('pointerdown', handleNumpadInput);
+elements.numberPad.addEventListener('click', handleNumpadInput);
 
 // Sound toggle
 elements.soundToggleBtn.addEventListener('click', () => {
