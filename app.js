@@ -1311,6 +1311,7 @@ elements.answerInput.addEventListener('keydown', (e) => {
 });
 
 // Number pad
+let isProgrammaticFocus = false;
 elements.numberPad.addEventListener('click', (e) => {
     const btn = e.target.closest('.num-btn');
     if (!btn) return;
@@ -1323,7 +1324,9 @@ elements.numberPad.addEventListener('click', (e) => {
         elements.answerInput.value += btn.dataset.num;
     }
     
+    isProgrammaticFocus = true;
     elements.answerInput.focus();
+    setTimeout(() => { isProgrammaticFocus = false; }, 0);
 });
 
 // Sound toggle
@@ -1386,7 +1389,9 @@ const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 if (isTouchDevice) {
     // Blur input immediately on focus to prevent keyboard
     elements.answerInput.addEventListener('focus', () => {
-        setTimeout(() => elements.answerInput.blur(), 0);
+        if (!isProgrammaticFocus) {
+            setTimeout(() => elements.answerInput.blur(), 0);
+        }
     }, { passive: true });
     
     // Also prevent keyboard on touchstart
