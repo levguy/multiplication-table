@@ -1307,12 +1307,8 @@ elements.answerInput.addEventListener('keydown', (e) => {
     }
 });
 
-// Number pad click handler
-// Using click only - touch-action: manipulation CSS eliminates the 300ms delay
-elements.numberPad.addEventListener('click', (e) => {
-    const btn = e.target.closest('.num-btn');
-    if (!btn) return;
-    
+// Number pad handler
+function processNumpadButton(btn) {
     playButtonClick();
     
     if (btn.dataset.action === 'clear') {
@@ -1322,6 +1318,32 @@ elements.numberPad.addEventListener('click', (e) => {
     } else if (btn.dataset.num !== undefined) {
         elements.answerInput.value += btn.dataset.num;
     }
+}
+
+// Track if touch already handled this interaction
+let touchHandled = false;
+
+// Touchstart for instant response on touch devices
+elements.numberPad.addEventListener('touchstart', (e) => {
+    const btn = e.target.closest('.num-btn');
+    if (!btn) return;
+    
+    e.preventDefault(); // Prevent click from firing
+    touchHandled = true;
+    processNumpadButton(btn);
+}, { passive: false });
+
+// Click for mouse/keyboard users
+elements.numberPad.addEventListener('click', (e) => {
+    if (touchHandled) {
+        touchHandled = false;
+        return;
+    }
+    
+    const btn = e.target.closest('.num-btn');
+    if (!btn) return;
+    
+    processNumpadButton(btn);
 });
 
 // Sound toggle
