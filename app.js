@@ -1311,7 +1311,8 @@ elements.answerInput.addEventListener('keydown', (e) => {
 });
 
 // Number pad
-let isProgrammaticFocus = false;
+// Use a counter instead of boolean to handle rapid consecutive taps
+let programmaticFocusCount = 0;
 elements.numberPad.addEventListener('click', (e) => {
     const btn = e.target.closest('.num-btn');
     if (!btn) return;
@@ -1324,9 +1325,9 @@ elements.numberPad.addEventListener('click', (e) => {
         elements.answerInput.value += btn.dataset.num;
     }
     
-    isProgrammaticFocus = true;
+    programmaticFocusCount++;
     elements.answerInput.focus();
-    setTimeout(() => { isProgrammaticFocus = false; }, 0);
+    setTimeout(() => { programmaticFocusCount--; }, 50);
 });
 
 // Sound toggle
@@ -1387,9 +1388,9 @@ document.addEventListener('touchend', (e) => {
 
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 if (isTouchDevice) {
-    // Blur input immediately on focus to prevent keyboard
+    // Blur input immediately on focus to prevent keyboard (only if not from numpad)
     elements.answerInput.addEventListener('focus', () => {
-        if (!isProgrammaticFocus) {
+        if (programmaticFocusCount === 0) {
             setTimeout(() => elements.answerInput.blur(), 0);
         }
     }, { passive: true });
