@@ -1299,10 +1299,7 @@ function startGame() {
 
 elements.startBtn.addEventListener('click', startGame);
 
-elements.submitBtn.addEventListener('click', () => {
-    playButtonClick();
-    checkAnswer();
-});
+// Submit button is now in the numpad - handled by handleNumpadInput
 
 elements.answerInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
