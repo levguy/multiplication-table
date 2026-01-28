@@ -1377,3 +1377,21 @@ document.addEventListener('touchend', (e) => {
     }
     lastTouchEnd = now;
 }, false);
+
+// ========================================
+// PREVENT MOBILE KEYBOARD
+// ========================================
+
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+if (isTouchDevice) {
+    // Blur input immediately on focus to prevent keyboard
+    elements.answerInput.addEventListener('focus', () => {
+        setTimeout(() => elements.answerInput.blur(), 0);
+    }, { passive: true });
+    
+    // Also prevent keyboard on touchstart
+    elements.answerInput.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        elements.answerInput.blur();
+    }, { passive: false });
+}
