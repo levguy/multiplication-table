@@ -10,6 +10,12 @@ let soundMode = 'fun'; // 'fun' or 'original'
 const audioCache = {};
 let soundsLoaded = false;
 
+// Sound files loaded dynamically from sounds.json
+let funSounds = {
+    correct: [],
+    wrong: []
+};
+
 function initAudio() {
     if (!audioContext) {
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -18,42 +24,34 @@ function initAudio() {
 }
 
 // ========================================
-// HIGH-QUALITY SOUND EFFECTS (Real Audio)
+// DYNAMIC SOUND LOADING
 // ========================================
 
-// Local high-quality sound files
-const funSounds = {
-    correct: [
-        'sounds/success/05aplausos-44496.mp3',
-        'sounds/success/applause2.mp3',
-        'sounds/success/cheer1.mp3',
-        'sounds/success/cheering-crowd-406645.mp3',
-        'sounds/success/crowd-applause-236697.mp3',
-        'sounds/success/kids_yay.mp3',
-        'sounds/success/short-crowd-cheer-6713.mp3',
-        'sounds/success/success1.mp3',
-        'sounds/success/success2.mp3',
-        'sounds/success/tada.mp3',
-        'sounds/success/triumphant-yes-x2-103141.mp3',
-    ],
-    wrong: [
-        'sounds/fail/Wha-Wha-Whaaa.mp3',
-        'sounds/fail/comedic-fail-259683.mp3',
-        'sounds/fail/fail-144746.mp3',
-        'sounds/fail/fail-2-demo-306647.mp3',
-        'sounds/fail/fail-jingle-stereo-mix-88784.mp3',
-        'sounds/fail/fail1.mp3',
-        'sounds/fail/fail2.mp3',
-        'sounds/fail/failed-295059.mp3',
-        'sounds/fail/game-fail-90322.mp3',
-        'sounds/fail/sad-trumpet-46384.mp3',
-        'sounds/fail/short-fart.mp3',
-    ]
-};
+// Load sound file list from sounds.json manifest
+async function loadSoundManifest() {
+    try {
+        const response = await fetch('sounds.json');
+        if (!response.ok) {
+            throw new Error(`Failed to load sounds.json: ${response.status}`);
+        }
+        const manifest = await response.json();
+        funSounds.correct = manifest.correct || [];
+        funSounds.wrong = manifest.wrong || [];
+        console.log(`🎵 Loaded sound manifest: ${funSounds.correct.length} success sounds, ${funSounds.wrong.length} fail sounds`);
+    } catch (error) {
+        console.error('Failed to load sound manifest:', error);
+        // Fallback to empty arrays - synthesized sounds will be used
+    }
+}
 
 // Preload all sounds using HTML5 Audio for reliability
 async function preloadSounds() {
     if (soundsLoaded) return;
+    
+    // First, load the sound manifest if not already loaded
+    if (funSounds.correct.length === 0 && funSounds.wrong.length === 0) {
+        await loadSoundManifest();
+    }
     
     console.log('🔊 Preloading sounds...');
     
@@ -88,7 +86,16 @@ async function preloadSounds() {
 // Play random sound from category
 function playRandomFunSound(category, volume = 0.7) {
     const urls = funSounds[category];
-    if (!urls || urls.length === 0) return;
+    if (!urls || urls.length === 0) {
+        // Fallback to synthesized sounds if no MP3s available
+        console.log(`⚠️ No ${category} sounds loaded, using synthesized fallback`);
+        if (category === 'correct') {
+            playApplause();
+        } else {
+            playWahWahWah();
+        }
+        return;
+    }
     
     const url = urls[Math.floor(Math.random() * urls.length)];
     console.log(`🎵 Playing ${category}: ${url}`);
