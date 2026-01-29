@@ -4,16 +4,17 @@
     "sounds/success/applause2.mp3",
     "sounds/success/cheer1.mp3",
     "sounds/success/cheering-crowd-406645.mp3",
+    "sounds/success/children-saying-yay.mp3",
     "sounds/success/crowd-applause-236697.mp3",
     "sounds/success/kids_yay.mp3",
     "sounds/success/short-crowd-cheer-6713.mp3",
     "sounds/success/success1.mp3",
     "sounds/success/success2.mp3",
     "sounds/success/tada.mp3",
-    "sounds/success/triumphant-yes-x2-103141.mp3"
+    "sounds/success/triumphant-yes-x2-103141.mp3",
+    "sounds/success/yay-6120.mp3"
   ],
   "wrong": [
-    "sounds/fail/Wha-Wha-Whaaa.mp3",
     "sounds/fail/comedic-fail-259683.mp3",
     "sounds/fail/fail-144746.mp3",
     "sounds/fail/fail-2-demo-306647.mp3",
@@ -22,7 +23,9 @@
     "sounds/fail/fail2.mp3",
     "sounds/fail/failed-295059.mp3",
     "sounds/fail/game-fail-90322.mp3",
+    "sounds/fail/group-no-sfx-442559.mp3",
     "sounds/fail/sad-trumpet-46384.mp3",
-    "sounds/fail/short-fart.mp3"
+    "sounds/fail/short-fart.mp3",
+    "sounds/fail/Wha-Wha-Whaaa.mp3"
   ]
 }
