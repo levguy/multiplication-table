@@ -12,7 +12,7 @@
     "sounds/success/success2.mp3",
     "sounds/success/tada.mp3",
     "sounds/success/triumphant-yes-x2-103141.mp3",
-    "sounds/success/yay-6120.mp3"
+    "sounds/success/yay-6120_normalized.mp3"
   ],
   "wrong": [
     "sounds/fail/comedic-fail-259683.mp3",
