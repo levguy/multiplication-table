@@ -16,6 +16,22 @@ let funSounds = {
     wrong: []
 };
 
+// Shuffled sound queues - ensures all sounds play before any repeats
+let soundQueues = {
+    correct: [],
+    wrong: []
+};
+
+// Fisher-Yates shuffle algorithm
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
 function initAudio() {
     if (!audioContext) {
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -83,10 +99,28 @@ async function preloadSounds() {
     console.log('🎉 All sounds preloaded!');
 }
 
-// Play random sound from category
-function playRandomFunSound(category, volume = 0.7) {
+// Get next sound from shuffled queue (refills when empty)
+function getNextSound(category) {
     const urls = funSounds[category];
     if (!urls || urls.length === 0) {
+        return null;
+    }
+    
+    // If queue is empty, refill with a fresh shuffle
+    if (soundQueues[category].length === 0) {
+        soundQueues[category] = shuffleArray(urls);
+        console.log(`🔀 Reshuffled ${category} sounds queue (${soundQueues[category].length} sounds)`);
+    }
+    
+    // Pop and return the next sound
+    return soundQueues[category].pop();
+}
+
+// Play next sound from shuffled queue
+function playRandomFunSound(category, volume = 0.7) {
+    const url = getNextSound(category);
+    
+    if (!url) {
         // Fallback to synthesized sounds if no MP3s available
         console.log(`⚠️ No ${category} sounds loaded, using synthesized fallback`);
         if (category === 'correct') {
@@ -97,8 +131,7 @@ function playRandomFunSound(category, volume = 0.7) {
         return;
     }
     
-    const url = urls[Math.floor(Math.random() * urls.length)];
-    console.log(`🎵 Playing ${category}: ${url}`);
+    console.log(`🎵 Playing ${category}: ${url} (${soundQueues[category].length} remaining in queue)`);
     
     // Use HTML5 Audio - simple and reliable
     const audio = new Audio(url);
