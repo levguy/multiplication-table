@@ -30,7 +30,17 @@
         <!-- Welcome screen -->
         <div id="welcome-screen" class="screen active">
             <div class="welcome-content">
-                <div class="mascot"><img src="opening-image.png" alt="Multiplication Master"></div>
+                <div class="mascot"><img id="opening-image" src="opening-image.png" alt="Multiplication Master"></div>
+                <script>
+                    (function() {
+                        const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Jerusalem' }));
+                        const month = now.getMonth() + 1;
+                        const day = now.getDate();
+                        if (month === 3 && day >= 21 || month === 4 && day <= 4) {
+                            document.getElementById('opening-image').src = 'opening-image-birthday.png';
+                        }
+                    })();
+                </script>
                 <h1 class="welcome-title">ברוכה הבאה!</h1>
                 <h2 class="welcome-subtitle">אביגיל</h2>
                 <p class="welcome-text">לתרגול המתקדם של לוח הכפל</p>
